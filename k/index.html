@@ -106,6 +106,11 @@ RULES
 # SessionStart — sentinel for the stop hook + board injection
 WORKROOT="/ABSOLUTE/PATH/SET/ME"   # single source of truth — installer sets this
 BOARD="$WORKROOT/board"
+if [ ! -f "$BOARD/BOARD.md" ]; then
+    echo "ERROR: no BOARD.md at $BOARD — WORKROOT is wrong or unset in THIS hook."
+    echo "Fix the WORKROOT line here and in session_stop.sh before doing any work."
+    exit 1
+fi
 touch /tmp/cc_session_start
 echo "Session started."
 echo ""
